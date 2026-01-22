@@ -1,0 +1,18 @@
+function booWho(obj) {
+  if (typeof obj === "boolean" && obj >= 1 && !isNaN(obj)) {
+    return obj
+  }
+  else if (!obj && !isNaN(obj)) {
+    return true
+  }
+  
+  
+  else if (obj || isNaN(obj)) {
+    return false
+  }
+  
+
+  
+  
+  
+}
