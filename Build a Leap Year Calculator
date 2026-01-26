@@ -1,0 +1,21 @@
+function isLeapYear(year) {
+  let itsAYear = false;
+
+  if (year % 4 === 0) {
+    itsAYear = true;
+  }
+  if (year % 100 === 0 && !year % 400 === 0) {
+     itsAYear = false;
+  }
+  
+  if (year % 4 === 0 && year % 100 === 0 && year % 400 === 0) {
+    itsAYear = true;
+  }
+
+  if (itsAYear) {return `${year} is a leap year.`}
+
+  return `${year} is not a leap year.`
+}
+const year = 1900
+const result = isLeapYear(year)
+console.log(result)
