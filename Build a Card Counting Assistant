@@ -1,0 +1,13 @@
+let count = 0
+function cardCounter(card) {
+  if (typeof card === "string" || card == 10) { count--
+  } else if (card <= 6 && card >= 2) { count++}
+  
+  if (count > 0) {
+    return count + " Bet"
+  }
+  return count + " Hold"
+  
+
+}
+
