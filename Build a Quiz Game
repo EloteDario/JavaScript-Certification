@@ -1,0 +1,53 @@
+const questions = [
+  {
+    category: "Geografía",
+    question: "¿Cuál es el río más largo del mundo?",
+    choices: ["Río Nilo", "Río Amazonas", "Río Misisipi"],
+    answer: "Río Amazonas"
+  },
+  {
+    category: "Tecnología",
+    question: "¿Qué lenguaje se usa principalmente para el estilo web?",
+    choices: ["HTML", "CSS", "Python"],
+    answer: "CSS"
+  },
+  {
+    category: "Ciencia",
+    question: "¿Cuál es el planeta más cercano al Sol?",
+    choices: ["Venus", "Marte", "Mercurio"],
+    answer: "Mercurio"
+  },
+  {
+    category: "Cultura",
+    question: "¿Quién pintó la Mona Lisa?",
+    choices: ["Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh"],
+    answer: "Leonardo da Vinci"
+  },
+  {
+    category: "Gaming",
+    question: "¿En qué año se lanzó el primer Counter-Strike?",
+    choices: ["1998", "1999", "2000"],
+    answer: "1999"
+  }
+];
+
+
+function getRandomQuestion(questions) {
+  const randomN =  Math.floor(Math.random() * 5);
+  return questions[randomN];
+}
+const w = getRandomQuestion(questions)
+
+function getRandomComputerChoice(e) {
+  const randomN =  Math.floor(Math.random() * 3);
+  
+  return e[randomN];
+}
+
+function getResults(qb, cc) {
+
+  if (qb.answer === cc) {
+    return "The computer's choice is correct!"
+  }
+  return `The computer's choice is wrong. The correct answer is: ${qb.answer}`
+}
