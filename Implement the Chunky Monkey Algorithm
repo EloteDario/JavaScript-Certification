@@ -1,0 +1,19 @@
+function chunkArrayInGroups(arr, size) {
+    const longitudArr = Object.keys(arr).length
+    if (longitudArr === 0) {
+        return arr
+    }
+
+    if (longitudArr <= size) {
+        return [arr]
+    }
+
+    const arrExpected = []
+
+    for (let i = 0; i < longitudArr; i += size) {
+        arrExpected.push(arr.slice(i, i + size))
+    }
+    return arrExpected
+};
+
+console.log(chunkArrayInGroups(["a", "b", "c", "d"], 2))
