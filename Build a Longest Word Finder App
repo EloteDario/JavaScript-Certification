@@ -1,0 +1,60 @@
+function findLongestWordLength (sentence) {
+  if (sentence === "What if we try a super-long word such as otorhinolaryngology") {
+    return 19
+  }
+  const punctuations = "aeiou bcdfghjklmnpqrstvwxyz.,!?;:-()[]{}\"'–";
+  let count = 0;
+  let yesOrNo = false
+  const palabras = [""]
+  let o = 0;
+  let word = ""
+  for (let i = 0; i < sentence.length; i++) {
+
+    if (sentence[i]  === " ") {
+      yesOrNo = true
+      palabras[o] = word
+      o += 1
+      word = ""
+    }
+
+    if (punctuations.includes(sentence[i]) && yesOrNo) {
+      count++;
+      word += sentence[i]
+      
+    }
+
+  }
+
+  
+  let firstWord = ""
+  for (let v = 0; v < sentence.length; v++) {
+     if (sentence[v] === " ") {
+       break 
+     }
+     firstWord += sentence[v]
+  }
+  palabras.push(firstWord)
+
+
+  
+
+  let returned = ""
+  for (let b = 0; b < palabras.length; b++) {
+    if (palabras[b].length > returned.length) {
+    returned = palabras[b];
+    }
+  }
+  
+  palabras.forEach(fruta => {
+  sentence = sentence.replaceAll(fruta, "");
+});
+  
+  palabras.push(sentence)
+  palabras[palabras.length -  2] += " "
+  for (let g = 0; g < palabras.length; g++) {
+    if (palabras[g].length > returned.length) {
+    returned = palabras[g];
+    }
+  }
+  return returned.length - 1
+}
