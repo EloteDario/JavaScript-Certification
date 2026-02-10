@@ -1,0 +1,29 @@
+function mutation(mutation) {
+  mutation[0] = mutation[0].toLowerCase()
+  mutation[1] = mutation[1].toLowerCase()
+  const apropatorio = mutation[1].length
+  let cumple1 = 0
+  for (let i = 0; i < apropatorio; i++) {
+    
+    if (mutation[0].includes(mutation[1][i].toLowerCase())) {
+      cumple1 += 1
+      
+    }
+  }
+  let cumple2 = 0
+  for (let u = 0; u < mutation[0].length; u++) {
+    
+    if (mutation[1].includes(mutation[0][u].toLowerCase())) {
+      cumple2 += 1
+      
+    }
+  }
+
+  if (cumple1 === mutation[1].length) {
+    return true
+  }
+  return false
+  
+}
+
+console.log(mutation(["ate", "date"]))
