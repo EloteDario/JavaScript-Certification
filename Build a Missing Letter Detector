@@ -1,0 +1,18 @@
+const abecedario = "abcdefghijklmnopqrstuvwxyz"
+function fearNotLetter (str) {
+  if (str === abecedario) {
+    return undefined
+  }
+  const initialP = abecedario.indexOf(str[0]);
+
+  for (let i = 0; i < abecedario.length; i++) {
+    if (str[i] !== abecedario[initialP + i]) {
+      return abecedario[initialP + i]
+    }
+    
+  }
+    
+
+  
+}
+console.log(fearNotLetter("stvwx"))
