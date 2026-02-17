@@ -1,0 +1,12 @@
+function titleCase(str) {
+  str = str.toLowerCase()
+  let palabra = str.split(" ")
+  
+  for (let i = 0; i < palabra.length; i++) {
+    
+    palabra[i] = palabra[i][0].toUpperCase() + palabra[i].slice(1)
+    
+  }
+  return palabra.join(" ")
+}
+console.log(titleCase("I like to code"))
