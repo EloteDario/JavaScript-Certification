@@ -1,0 +1,50 @@
+function getAverage (arr){
+  let sum = 0
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i]
+  }
+  return sum/ arr.length
+}
+
+function getGrade(prom) {
+
+  switch (true) {
+  case (prom === 100):
+    return "A+";
+    break;
+  case (prom >= 90):
+    return "A";
+    break;
+  case (prom >= 80):
+    return "B";
+    break;
+  case (prom >= 70):
+    return "C" ;
+    break;
+  case (prom >= 60):
+    return "D" ;
+    break;
+  case (prom <= 59):
+    return "F";
+    break;
+    
+  
+  }
+
+}
+
+function hasPassingGrade (note) {
+  
+  if (getGrade(note) == "F") {return false}
+  return true
+}
+
+function studentMsg(arr, a) {
+  const avg = getAverage(arr)
+  const grade = getGrade(a)
+
+  
+  if (grade === "F") {return `Class average: ${avg}. Your grade: ${grade}. You failed the course.`}
+  return `Class average: ${avg}. Your grade: ${grade}. You passed the course.`
+
+}
