@@ -1,0 +1,53 @@
+const inventory = []
+
+function findProductIndex (productName) {
+  for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].name === productName.toLowerCase()) {
+      return i
+    }
+  }
+  return -1
+}
+
+
+
+function addProduct(obj) {
+  const index = findProductIndex(obj.name)
+  if (index === -1) {
+    obj.name = obj.name.toLowerCase()
+    inventory.push(obj)
+    console.log(`${obj.name.toLowerCase()} added to inventory`)
+  } else {inventory[index].quantity += obj.quantity
+    console.log(`${obj.name.toLowerCase()} quantity updated`)
+  }
+   
+}
+
+
+
+function removeProduct(productName, productQuantity) {
+  const index = findProductIndex(productName)
+  productName = productName.toLowerCase()
+  if (index === -1) {
+    productName = productName.toLowerCase()
+    console.log(`${productName} not found`)
+  }
+  else if (inventory[index].quantity - productQuantity <= 0) {
+    if (inventory[index].quantity - productQuantity === 0) {
+      inventory.splice(index, 1)
+      
+      
+    } else {
+      console.log(`Not enough ${productName} available, remaining pieces: ${inventory[index].quantity}`)}
+    
+  }
+
+  else {
+    
+    inventory[index].quantity = inventory[index].quantity - productQuantity
+    console.log(`Remaining ${productName} pieces: ${inventory[index].quantity}`)
+  }
+
+
+}
+
