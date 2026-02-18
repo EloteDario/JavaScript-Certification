@@ -1,0 +1,13 @@
+function bouncer(obj) {
+    if (obj === null || typeof obj !== 'object') return obj; 
+        const objR = []
+
+        for (let i= 0; i < obj.length; i++) {
+            if (obj[i]) {
+                objR.push(obj[i])
+            }
+        }
+        
+
+    return objR
+};
