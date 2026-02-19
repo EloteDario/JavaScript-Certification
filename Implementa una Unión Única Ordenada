@@ -1,0 +1,15 @@
+
+function uniteUnique(arr1, arr2, ...arrLeft) {
+  const arrOfArr = [arr1, arr2, ...arrLeft]
+  const arrReturned = []
+  
+  for (let i = 0; i < arrOfArr.length; i++) {
+    for (let o = 0; o < arrOfArr[i].length; o++) {
+      if (!arrReturned.includes(arrOfArr[i][o])) {
+        arrReturned.push(arrOfArr[i][o])
+      }
+    }
+  }
+
+  return arrReturned
+}
