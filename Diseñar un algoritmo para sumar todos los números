@@ -1,0 +1,9 @@
+function sumAll(arr) {
+  const max = Math.max(...arr);
+  const min = Math.min(...arr);
+  let numReturned = 0
+  for (let i = max; i >= min; i--) {
+    numReturned += i
+  }
+  return numReturned
+}
