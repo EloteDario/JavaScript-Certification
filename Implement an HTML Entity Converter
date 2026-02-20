@@ -1,0 +1,18 @@
+function convertHTML(str) {
+  const strIf = "\"\'&<>"
+  const dict = {"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"" : "&quot;", "\'": "&apos;"}
+  let strReturned = ""
+  for (let i = 0; i < str.length; i++) {
+    
+    if (strIf.includes(str[i])) {
+      strReturned += dict[str[i]]
+      
+      
+    } else {strReturned += str[i]}
+    
+    
+    
+
+  }
+  return strReturned
+}
