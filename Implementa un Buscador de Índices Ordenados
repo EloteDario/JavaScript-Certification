@@ -1,0 +1,13 @@
+function getIndexToIns (arr, num) {
+  if (arr[0] === undefined) {
+    return 0
+  }
+  const arrOrd = arr.sort((a, b) => a - b);
+  
+  if (arrOrd.findIndex(libro => libro >= num) === - 1) {
+    return arr.length 
+  }
+  return arrOrd.findIndex(libro => libro >= num)
+}
+
+console.log(getIndexToIns([3, 10, 5], 11)) 
