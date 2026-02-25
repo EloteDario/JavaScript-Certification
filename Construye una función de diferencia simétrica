@@ -1,0 +1,12 @@
+function diffArray(arr1, arr2) {
+  if (arr1[0] === undefined && arr2[0] === undefined ) {return []}
+  else if (arr1[0] === undefined) {return arr2}
+  else if (arr2[0] === undefined) {return arr1}
+
+
+
+
+
+  return arr1.filter(num => !arr2.includes(num)).concat(arr2.filter(num => !arr1.includes(num)))
+}
+console.log(diffArray(["diamond", "stick", "apple"], ["stick", "emerald", "bread"])) 
