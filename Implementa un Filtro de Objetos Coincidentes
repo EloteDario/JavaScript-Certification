@@ -1,0 +1,33 @@
+function whatIsInAName (arrOf, dict) {
+  const listReturned = [];
+  
+  const llavesABuscar = Object.keys(dict);
+
+  
+  for (let i = 0; i < arrOf.length; i++) {
+    const objetoActual = arrOf[i];
+    let cumpleTodosLosRequisitos = true; 
+
+    
+    for (let j = 0; j < llavesABuscar.length; j++) {
+      const nombreLlave = llavesABuscar[j];
+
+      
+      if (objetoActual[nombreLlave] !== dict[nombreLlave]) {
+        cumpleTodosLosRequisitos = false; 
+        break; 
+      }
+    }
+
+    
+    if (cumpleTodosLosRequisitos) {
+      listReturned.push(objetoActual); 
+    }
+  }
+
+  return listReturned;
+}
+
+  
+
+console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "cookie": 2 })) 
