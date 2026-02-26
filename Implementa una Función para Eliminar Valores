@@ -1,0 +1,7 @@
+function destroyer(arr1, ipt1, ...ipt) {
+  const arr2 = [ipt1, ...ipt]
+  return arr1.filter(num => !arr2.includes(num)).concat(arr2.filter(num => !arr1.includes(num)))
+  
+}
+
+
