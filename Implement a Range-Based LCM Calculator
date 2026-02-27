@@ -1,0 +1,19 @@
+function smallestCommons(arr) {
+
+  const checkNum = [];
+  const min = Math.min(...arr)
+  const max = Math.max(...arr)
+  
+  for (let o = min; o <= max; o++) {checkNum.push(o)}
+  let i = min * max
+
+  while (true) {
+    if (checkNum.every(num => i % num === 0)) {
+      break
+    }
+    i += min * max
+  }
+
+  return i 
+
+}
