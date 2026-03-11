@@ -13,7 +13,6 @@ const instrumentsArr = [
 
 const selectContainer = document.querySelector("select");
 const productsContainer = document.querySelector(".products-container");
-
 function instrumentCards(instrumentCategory) {
   const instruments =
     instrumentCategory === "all"
@@ -30,8 +29,8 @@ function instrumentCards(instrumentCategory) {
             <p>$${price}</p>
           </div>
         `;
-    })
+    }).join("")
 }
 selectContainer.addEventListener("change", () => {
-  productsContainer.innerHTML = instrumentCards(selectContainer.value)
+  productsContainer.innerHTML = instrumentCards(selectContainer.value);
 });
