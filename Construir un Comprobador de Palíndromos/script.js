@@ -7,15 +7,15 @@ const result = document.querySelector("#result")
 
 function isPalindrome(text){
 text = text.toLowerCase(text)
-const textoLimpio = text.replace(/[^a-z0-9]/g, '')
-const textReversed = textoLimpio.split('').reverse().join('')
-return textoLimpio === textReversed
+const cleanText = text.replace(/[^a-z0-9]-/g, '')
+const textReversed = cleanText.split('').reverse().join('')
+return cleanText === textReversed
 }
 
 button.addEventListener("click", () => {
 
   const text = textInput.value
-
+  
   if (text === "") {
     alert("Please input a value");
     return; 
@@ -24,4 +24,5 @@ button.addEventListener("click", () => {
   if (isPalindrome(text)) {
     result.innerText = `${text} is a palindrome`
   } else {result.innerText = `${text} is not a palindrome`}
+  
 })
