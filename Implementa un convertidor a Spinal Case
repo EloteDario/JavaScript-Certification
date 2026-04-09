@@ -1,0 +1,9 @@
+function spinalCase(text) {
+text = text.replace(/([a-z])([A-Z])/g, '$1 $2')
+
+text = text.replace(/[ _]+/g, "-")
+
+return text.toLowerCase()
+}
+
+console.log(spinalCase("thisIsSpinalTap"))   
