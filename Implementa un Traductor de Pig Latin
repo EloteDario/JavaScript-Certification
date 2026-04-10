@@ -1,0 +1,21 @@
+function translatePigLatin(text) {
+if ("aeiou".includes(text[0])) {
+  text += "way"
+  return text
+} 
+if (!/[aeiou]/.test(text)) {
+  text += "ay"
+  return text
+}
+
+while ("bcdfghjklmnpqrstvwxyz".includes(text[0])) {
+text = text.replace(/([bcdfghjklmnpqrstvwxyz])(.*)/, '$2$1');
+} 
+
+text += "ay"
+
+return text 
+}
+ 
+
+console.log(translatePigLatin("rhythm"))
