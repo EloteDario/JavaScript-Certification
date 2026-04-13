@@ -1,0 +1,14 @@
+function myReplace(text, word, wordReplace) {
+  if (word[0] === word[0].toUpperCase()) {
+    wordReplace = wordReplace.split("")
+    wordReplace[0] = wordReplace[0].toUpperCase()
+    wordReplace = wordReplace.join("")
+  } else {
+    wordReplace = wordReplace.toLowerCase()
+  }
+
+
+  text = text.replace(word, wordReplace) 
+  return text
+}
+console.log(myReplace("Let us go to the Store", "Store", "mall"))
