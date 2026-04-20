@@ -1,0 +1,125 @@
+const form = document.querySelector("#form");
+const emailInput  = document.querySelector("#email");
+const nameInput = document.querySelector("#full-name");
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const order = document.querySelector("#order-no");
+const orderPattern = /^2024[0-9]{6}$/;
+
+const code = document.querySelector("#product-code");
+const codePattern = /^[a-zA-Z][a-zA-Z][0-9][0-9]-[a-zA-Z][0-9][0-9][0-9]-[a-zA-Z][a-zA-Z][0-9]/;
+
+const quantity = document.querySelector("#quantity");
+const quantityPattern = /^[1-9][0-9]*$/;
+const solutionsGroup = document.querySelector("#solutions-group");
+const complaintsGroup = document.querySelector("#complaints-group");
+const description = document.querySelector("#complaint-description");
+const other = document.querySelector("#other-complaint");
+const solutionsDescription = document.querySelector("#solution-description");
+const otherSolution = document.querySelector("#other-solution");
+
+// =========================================================
+// 1. EVENTO "CHANGE": Pinta colores mientras el usuario escribe
+// =========================================================
+form.addEventListener("change", (event) => {
+  const results = validateForm(); 
+  const element = event.target; // Descubre qué campo se modificó
+
+  if (element === nameInput) {
+    nameInput.style.border = results["full-name"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === emailInput) {
+    emailInput.style.border = results["email"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === order) {
+    order.style.border = results["order-no"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === code) {
+    code.style.border = results["product-code"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === quantity) {
+    quantity.style.border = results["quantity"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element.name === "complaint") {
+    complaintsGroup.style.border = results["complaints-group"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element.name === "solutions") {
+    solutionsGroup.style.border = results["solutions-group"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === description) {
+    description.style.border = results["complaint-description"] ? "2px solid green" : "2px solid red";
+  } 
+  else if (element === solutionsDescription) {
+    solutionsDescription.style.border = results["solution-description"] ? "2px solid green" : "2px solid red";
+  }
+});
+
+// =========================================================
+// 2. EVENTO "SUBMIT": Valida todo al presionar el botón
+// =========================================================
+form.addEventListener("submit", (event) => {
+  const results = validateForm();
+  
+  // Llamamos a isValid para cumplir la regla de la prueba
+  if (!isValid(results)) {
+    event.preventDefault(); // Hay errores, detenemos el envío
+
+    // Pintamos todos los campos que estén mal
+    nameInput.style.border = results["full-name"] ? "2px solid green" : "2px solid red";
+    emailInput.style.border = results["email"] ? "2px solid green" : "2px solid red";
+    order.style.border = results["order-no"] ? "2px solid green" : "2px solid red";
+    code.style.border = results["product-code"] ? "2px solid green" : "2px solid red";
+    quantity.style.border = results["quantity"] ? "2px solid green" : "2px solid red";
+    complaintsGroup.style.border = results["complaints-group"] ? "2px solid green" : "2px solid red";
+    solutionsGroup.style.border = results["solutions-group"] ? "2px solid green" : "2px solid red";
+    
+    if (other.checked) {
+      description.style.border = results["complaint-description"] ? "2px solid green" : "2px solid red";
+    }
+    if (otherSolution.checked) {
+      solutionsDescription.style.border = results["solution-description"] ? "2px solid green" : "2px solid red";
+    }
+  }
+});
+
+// =========================================================
+// 3. FUNCIONES VALIDADORAS (Intactas)
+// =========================================================
+function isValid(validationObj) { 
+  return Object.values(validationObj).every(valor => valor === true);
+}
+
+function validateForm() {
+  const nameValue = nameInput.value.trim();
+  const emailValue = emailInput.value.trim();
+  const orderValue = order.value.trim();
+  const codeValue = code.value.trim();
+  const quantityValue = quantity.value.trim();
+  const checkedBoxes = complaintsGroup.querySelectorAll("input[type='checkbox']:checked");
+  const checkedSolutions = solutionsGroup.querySelectorAll("input[type='radio']:checked");
+
+  const validationResult = {};
+
+  validationResult["full-name"] = (nameValue !== "");
+  validationResult["email"] = (emailValue !== "" && emailPattern.test(emailValue));
+  validationResult["order-no"] = (orderValue !== "" && orderPattern.test(orderValue));
+  validationResult["product-code"] = (codeValue !== "" && codePattern.test(codeValue));
+  validationResult["quantity"] = (quantityValue !== "" && quantityPattern.test(quantityValue));
+  
+  validationResult["complaints-group"] = (checkedBoxes.length > 0);
+  validationResult["solutions-group"] = (checkedSolutions.length > 0);
+
+  if (other.checked) {
+    validationResult["complaint-description"] = (description.value.length >= 20);
+  } else {
+    validationResult["complaint-description"] = true;
+  }
+
+  if (otherSolution.checked) {
+    validationResult["solution-description"] = (solutionsDescription.value.length >= 20);
+  } else {
+    validationResult["solution-description"] = true;
+  }
+
+  return validationResult;
+}
