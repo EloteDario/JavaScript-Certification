@@ -1,0 +1,138 @@
+const playlists = [
+  [
+    {
+      trackId: "trk101",
+      artist: "Velvet Comet",
+      title: "Crimson Afterglow",
+      votes: 5,
+      bpm: 122
+    },
+    {
+      trackId: "trk102",
+      artist: "Neon Harbor",
+      title: "Static Horizon",
+      votes: 2,
+      bpm: 108
+    },
+    {
+      trackId: "trk103",
+      artist: "Lunar Arcade",
+      title: "Midnight Frequency",
+      votes: 4,
+      bpm: 128
+    }
+  ],
+  [
+    {
+      trackId: "trk201",
+      artist: "Solar Echo",
+      title: "Glass Skyline",
+      votes: 3,
+      bpm: 115
+    },
+    {
+      trackId: "trk202",
+      artist: "Velvet Comet",
+      title: "Satellite Hearts",
+      votes: 6,
+      bpm: 124
+    }
+  ]
+];
+
+function flattenPlaylists(lista) {
+  if (!Array.isArray(lista)) {return []} 
+
+  const returnedList = []
+
+  lista.forEach((subLista, indiceLista) => {
+    subLista.forEach((musica, indiceMusica) => {
+      const musicParameters = {
+        ...musica,
+        source: [indiceLista, indiceMusica]
+      }
+      returnedList.push(musicParameters)
+    })
+  })
+  return returnedList
+} 
+
+function scoreTracks(lista) {
+  if (!Array.isArray(lista)) {return []} 
+
+  const returnedList = []
+
+  for (let i = 0; i < lista.length; i++) {
+    const musicParameters = {
+        ...lista[i],
+        score: lista[i].votes * 10 - Math.abs(lista[i].bpm - 120)
+      }
+    returnedList.push(musicParameters)
+  }
+  return returnedList
+}
+
+
+function dedupeTracks(lista) {
+  const returnedList = []
+  const dict = {}
+
+  for (let i = 0; i < lista.length; i++) {
+    const trackId = lista[i].trackId;
+
+    if (!dict[trackId]) {
+      dict[trackId] = 67676767;
+      returnedList.push(lista[i])
+    }
+
+  }
+  return returnedList
+}
+
+function enforceArtistQuota(lista, num) {
+  const returnedList = []
+  const dict = {}
+
+  for (let i = 0; i < lista.length; i++) {
+    const trackId = lista[i].trackId;
+    dict[trackId] = 0;
+  }
+
+  for (let i = 0; i < lista.length; i++) {
+    const trackId = lista[i].artist;
+
+    if (dict[trackId] <= num) {
+      dict[trackId] += 1;
+      returnedList.push(lista[i])
+    }
+
+  }
+
+  return returnedList 
+}
+
+function buildSchedule (lista) {
+  if (!Array.isArray(lista)) {return []} 
+
+  const returnedList = []
+
+  lista.forEach((musica, indiceLista) => {
+    
+      const musicParameters = {
+        slot: indiceLista + 1,
+        trackId: musica.trackId 
+      }
+
+      returnedList.push(musicParameters)
+  })
+  return returnedList
+} 
+
+function remixPlaylist(arr, maxPerArtist) {
+  const todas = flattenPlaylists(arr);
+  const puntuadas = scoreTracks(todas);
+  const ordenadas = puntuadas.sort((a, b) => b.score - a.score);
+  const unicas = dedupeTracks(ordenadas);
+  const finales = enforceArtistQuota(unicas, maxPerArtist);
+  return buildSchedule(finales);
+}
