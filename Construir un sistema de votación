@@ -1,0 +1,48 @@
+const poll = new Map()
+
+function addOption(option){
+  if (option[0] === undefined) {
+    return "Option cannot be empty."
+  }
+
+  if (!poll.has(option)){
+    poll.set(option, new Set())
+    return `Option "${option}" added to the poll.`
+  } else {
+    return `Option "${option}" already exists.`
+  }
+}
+
+function vote(option, voterId) {
+  let setVoters = poll.get(option)
+  if (!poll.has(option)) {
+    return `Option "${option}" does not exist.`
+  } else {
+    if (setVoters.has(voterId)) {
+      return `Voter ${voterId} has already voted for "${option}".`
+    } else {
+      
+      setVoters.add(voterId)
+      return `Voter ${voterId} voted for "${option}".`
+    }
+  }
+}
+
+addOption("Turkey")
+addOption("Usa")
+addOption("Peru")
+
+vote("Peru", "q")
+vote("Peru", "a")
+vote("Usa", "w")
+
+
+function displayResults() {
+  const returnedList = ["Poll Results:"];
+  for (let [option, voters] of poll) {
+
+    returnedList.push(`${option}: ${voters.size} votes`);
+  }
+
+  return returnedList.join("\n");
+}
