@@ -1,0 +1,62 @@
+function isPalindrome(word){
+  const str = word.toLowerCase()
+  const strReversed = str.split('').reverse().join('')
+  return str === strReversed
+}
+
+function findPalindromeBreaks(words) {
+  const returnedArr = [];
+
+  for (let i = 0; i < words.length; i++) {
+    if (!words[i] || !isPalindrome(words[i])) {
+      returnedArr.push(i);
+    }
+  }
+
+  return returnedArr;
+}
+
+function findRepeatedPhrases(words, phraseLength) {
+  if (phraseLength >= words.length) {
+    return []
+  }
+
+  const returnedArr = []
+  const counter = {}
+
+  for (let t = 0; t <= words.length - phraseLength; t++) {
+    const phrase = words.slice(t, t + phraseLength).join(' ');
+
+    if (counter[phrase] === undefined) {
+      counter[phrase] = 1
+    } else {
+      counter[phrase] += 1
+    }
+  }
+
+
+  for (let t = 0; t <= words.length - phraseLength; t++) {
+    const phrase = words.slice(t, t + phraseLength).join(' ');
+
+    if (counter[phrase] > 1) {
+      returnedArr.push(t)
+    }
+  }
+
+  return returnedArr 
+}
+
+
+function analyzeTexts(texts, phraseLength) {
+
+  if (texts.length === 0) {return []}
+
+  const returnedArr = []
+
+  
+  for (let i = 0; i < texts.length; i++) {
+   returnedArr.push({repeatedPhrases: findRepeatedPhrases(texts[i], phraseLength), palindromeBreaks: findPalindromeBreaks(texts[i])})
+  }
+
+  return returnedArr
+}
