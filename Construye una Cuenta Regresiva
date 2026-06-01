@@ -1,0 +1,17 @@
+function countdown(num) {
+let list = []
+if (num < 1) {
+  return []
+} else {
+
+
+list.push(num, ...countdown(num-1))
+
+
+return list
+}
+
+
+}
+
+ console.log(countdown(10))
