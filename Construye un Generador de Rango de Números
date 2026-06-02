@@ -1,0 +1,14 @@
+function rangeOfNumbers(startNum, endNum) {
+  let list = []
+
+  if (endNum  === startNum - 1) {
+    return []
+  } else {
+    list.push(...rangeOfNumbers(startNum, endNum - 1), endNum)
+    return list
+  }
+
+
+}
+
+console.log(rangeOfNumbers(3, 9))
