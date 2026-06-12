@@ -1,0 +1,41 @@
+
+function initStack() {
+  return {
+    collection: []
+  };
+}
+
+function push(list, element) {
+  list.collection.push(element);
+}
+
+function pop(list) {
+  if (list.collection.length === 0) {
+    return undefined
+  }
+
+  return list.collection.pop();
+
+}
+
+function peek(list) {
+  if (list.collection.length === 0) {
+    return undefined
+  }
+
+  return list.collection[list.collection.length - 1]
+}
+
+function isEmpty (list) {
+  if (list.collection.length === 0) {
+    return true
+  }
+
+  return false
+}
+
+
+function clear (list) {
+  list.collection = []
+}
+
