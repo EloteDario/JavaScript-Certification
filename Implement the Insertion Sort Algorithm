@@ -1,0 +1,30 @@
+function insertionSort(list) {
+
+  let far;
+
+  for (let i = 0; i < list.length -1; i++) {
+    if (list[i + 1] < list[i]) { // Si el del frente es mayor swapearlos
+      [list[i + 1], list[i]] = [list[i], list[i + 1]] //swap
+    }
+        far = i - 1
+        let emm = i
+        for (let l = far; l >= 0; l--) { // Bucle desde adelante (desde i hasta 0)
+          if (list[l] > list[emm]) { // Si el anterior es mayor swapearlos
+            [list[emm], list[l]] = [list[l], list[emm]] //swap
+            emm--
+          
+        }else {
+            break
+            }
+
+
+    }
+  
+}
+
+return list
+}
+
+
+
+console.log(insertionSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]))
