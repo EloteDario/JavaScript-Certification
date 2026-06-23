@@ -1,0 +1,40 @@
+function quicksort(list, start = 0, end = list.length - 1) {
+  //casobase
+
+  if (start >= end) {
+    return
+  }
+
+
+
+
+  // Definir ultimo elemento (pivot)
+  let pivot = list[end]
+
+  // definir Index para swap
+  let j = start
+  // Bucle for
+  for (let i = start; i < end; i++) {
+    
+    if (list[i] <= pivot) {
+      
+
+      
+        [list[i], list[j]] = [list[j], list[i]]
+        j++
+    }
+    
+  }
+
+  [list[end], list[j]] = [list[j], list[end]]
+  
+  quicksort(list, start, j - 1)
+  quicksort(list, j + 1, end)
+
+
+
+  return list
+
+}
+
+console.log(quicksort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]))
