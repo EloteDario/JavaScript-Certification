@@ -1,0 +1,139 @@
+const pantry = [
+  { sku: "A10", name: "Tomatoes", qty: 4, expires: "2027-01-01", zone: "fridge" },
+  { sku: "D43", name: "Pineapples", qty: 2, expires: "2020-01-01", zone: "general" }
+];
+
+const rawData = [
+  "A10|Tomatoes|5|2027-01-01",
+  "B21|Bananas|10|2027-01-01",
+  "C32|Eggs|3|2027-01-01|fridge",
+  "C32|Eggs|3|2027-01-01",
+  "D43|Pineapples|0|2027-01-01",
+  "E54|Peppers|-1|2027-01-01|fridge"
+];
+
+function parseShipment(rawData) {
+const skus = []
+
+const arr = []
+  for (let i = 0; i < rawData.length; i++) {
+    const [sku, name, qty, expires, zone ] = rawData[i].split('|');
+
+
+    
+
+
+
+    const obj = {
+      sku,
+      name,
+      qty: Number(qty),
+      expires,
+      zone
+    }
+
+    if (obj.zone === undefined) {
+      obj.zone = "general"
+    }
+
+    arr.push(obj)
+
+    for (let j = 0; j < skus.length; j++) {
+      if (obj.sku === skus[j]) {
+        arr.pop()
+      }
+    }
+  skus.push(sku)
+
+  }
+
+  return arr
+
+
+}
+
+ function planRestock(pantry, shipment) {
+  const arr = []
+
+  for (let i = 0; i < shipment.length; i++) {
+
+    const obj = {item:shipment[i]}
+
+  let isThere = false
+
+
+  for (let j = 0; j < pantry.length; j++) {
+      if (obj.item.sku === pantry[j].sku) {
+        isThere = true
+      }
+    }
+
+
+  if (obj.item.qty <= 0) {
+    obj.type = "discard"
+  } else if(isThere) {
+    obj.type = "restock"
+  } else {
+    obj.type = "donate"
+  }
+  
+  arr.push(obj)
+  }
+
+  return arr
+
+ }
+
+
+
+ function groupByZone(actions){
+  const groups = {}
+  
+
+
+  for (let i = 0; i < actions.length; i++) {
+
+    const zone = actions[i].item.zone
+
+    if (groups[zone] === undefined) {
+      groups[zone] = [actions[i]]
+    } else {
+      groups[zone].push(actions[i])
+    }
+  }
+
+
+  return groups
+ }
+
+
+function clonePantry(pantry) {
+  
+  const arr = []
+
+  for (let i = 0; i < pantry.length; i++) {
+
+    const {sku, name, qty, expires, zone } = pantry[i]
+
+    const obj = {
+      sku,
+      name,
+      qty: Number(qty),
+      expires,
+      zone
+    }
+
+    arr.push(obj)
+
+  }
+  return arr
+}
+
+
+
+
+const shipment = parseShipment(rawData)
+const actions = planRestock(pantry, shipment)
+const final = groupByZone(actions)
+
+console.log(final)
