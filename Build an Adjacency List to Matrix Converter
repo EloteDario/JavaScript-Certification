@@ -1,0 +1,29 @@
+function emptyMat(listLength) {
+  const arr = [] 
+
+
+  for (let i = 0; i <= listLength - 1; i++) {
+    const listaNumeros = Array(listLength).fill(0);
+
+    arr.push(listaNumeros)
+  }
+
+  return arr
+}
+
+function adjacencyListToMatrix(adList) {
+const listLength = Object.keys(adList).length;
+const emptyMatrix = emptyMat(listLength)
+
+for (let i = 0; i < listLength; i++) {
+
+  for (let y = 0; y < adList[i].length; y++) {
+
+    emptyMatrix[i][adList[i][y]] = 1
+    
+  }
+  console.log(emptyMatrix[i])
+}
+return emptyMatrix
+}
+
