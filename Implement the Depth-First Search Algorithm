@@ -1,0 +1,28 @@
+function dfs(graph, root) {
+
+const visited = []
+const toVisit = []
+
+visited.push(root)
+toVisit.push(root)
+
+while (toVisit.length > 0) {
+  let nodoActual = toVisit.pop()
+
+    for (let y = 0; y < graph[nodoActual].length; y++)  {
+
+      if (graph[nodoActual][y] === 1 && visited.indexOf(y) === -1) {
+
+        toVisit.push(y)
+        visited.push(y)
+
+      }
+  }
+}
+
+
+return visited
+
+}
+
+
