@@ -55,3 +55,58 @@ function converter(board) {
   }
   return returnedList
 }
+
+function createBoard(n) {
+  const board = []
+
+  for (let i = 0; i < n; i++) {
+    board.push(Array(n).fill("."))
+  }
+  return board
+}
+
+function dfsNQueens(n) {
+  if(n < 1) {
+    return []
+  }
+  // Crear Board y Lista de Soluciones
+  const board = createBoard(n)
+
+  const solutions = []
+
+  //BackTracking
+  function backTraking(filaActual) {
+
+  //Caso Base
+    // Si la posicion es segura y hay una Q en la ultima fila es una solucion
+    if (filaActual === n) {
+
+    //Si se cumple agregar la solucion a solutions pero antes la debes de pasar por la funcion "converter"
+    solutions.push(converter(board))
+
+    //Si se cumple fuerzas un retroceso a la fila de detras retornando sin valor, para que se vaya a la anterior llamada
+    return
+    }
+
+  // Probar columna, intentar colocar una Q en la primera columna disponible
+  for (let col = 0; col < n; col++) {
+
+  //Validas si la posicion es segura.
+  if (isValidPosition(board, filaActual, col)) {
+    // Si la posicion es segura, dejas la Q y llamas a la funcion recursivamente para repetir el proceso
+      board[filaActual][col] = "Q"
+      backTraking(filaActual + 1)
+
+  // SI no es segura quitas la Q que colocastes al probar la columna
+      board[filaActual][col] = "."
+      }
+    }
+  }
+
+  //LLamas a la funcion BackTRaking desde la primera fila
+  backTraking(0)
+
+  return solutions
+} 
+
+console.log(dfsNQueens(10))
