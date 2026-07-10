@@ -97,7 +97,7 @@ function dfsNQueens(n) {
       board[filaActual][col] = "Q"
       backTraking(filaActual + 1)
 
-  // SI no es segura quitas la Q que colocastes al probar la columna
+    //Si encuentra o No encuentra nada
       board[filaActual][col] = "."
       }
     }
