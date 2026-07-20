@@ -1,0 +1,102 @@
+function generateElement() {
+  return Math.floor(Math.random() * (100 - 1 + 1)) + 1
+}
+
+function generateArray() {
+  const arr = []
+  for (let i = 0; i < 5; i++) {
+    arr.push(generateElement())
+  }
+
+  return arr
+}
+
+function generateContainer() {
+  return document.createElement("div");
+}
+
+function fillArrContainer(element, arrNum) {
+element.innerHTML = ""
+
+for (let i = 0; i < arrNum.length; i++) {
+  const span = document.createElement("span");
+    span.textContent = arrNum[i];
+    element.appendChild(span);
+}
+
+return element
+}
+
+function isOrdered(ent1, ent2) {
+  return ent1 <= ent2 ? true : false
+}
+
+function swapElements(arr, t) {
+   if (!isOrdered(arr[t], arr[t + 1])) {
+      [arr[t], arr[t + 1]] = [arr[t+1], arr[t]]
+    }
+}
+
+function highlightCurrentEls(element, index) {
+  element.children[index].style.border = "3px dashed red"
+
+  element.children[index + 1].style.border = "3px dashed red"
+}
+
+
+
+const generatorButton = document.querySelector("#generate-btn") 
+const startArray = document.querySelector("#starting-array") 
+const arrayContainer= document.querySelector("#array-container")
+let currentArray = []
+generatorButton.addEventListener("click", () => {
+  arrayContainer.innerHTML = `<div id="starting-array"></div>`
+  const newstartArray = document.querySelector("#starting-array") 
+
+  currentArray = generateArray()
+
+  fillArrContainer(newstartArray, currentArray)
+  sortBtn.disabled = false
+})
+
+
+function listBubbleSort(arr) {
+  const divList = []
+  divList.push(`<div>${arr}</div>`)
+  for (let i = 0; i < arr.length; i++) { 
+    for (let t = 0; t < arr.length; t++) {
+      swapElements(arr, t) 
+      divList.push(`<div>${arr}</div>`)
+    }
+  }
+  return divList
+}
+
+const sortBtn = document.querySelector("#sort-btn")
+
+sortBtn.addEventListener("click", () => {
+  
+  sortBtn.disabled = true;
+  let sortingArr = [...currentArray]
+
+  const startingDiv = document.querySelector("#starting-array")
+  highlightCurrentEls(startingDiv, 0)
+
+  for (let i = 0; i < sortingArr.length; i++) {
+    for (let j = 0; j < sortingArr.length - 1 - i; j++) {
+
+    const stepDiv = generateContainer()
+
+    fillArrContainer(stepDiv, sortingArr)
+    highlightCurrentEls(stepDiv, j)
+    arrayContainer.appendChild(stepDiv);
+    swapElements(sortingArr, j);
+    }
+  }
+
+
+  const finalDiv = generateContainer()
+  fillArrContainer(finalDiv, sortingArr);
+  arrayContainer.appendChild(finalDiv);
+  
+})  
