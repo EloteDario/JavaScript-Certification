@@ -1,0 +1,95 @@
+const forumLatest =
+  'https://cdn.freecodecamp.org/curriculum/forum-latest/latest.json';
+const forumTopicUrl = 'https://forum.freecodecamp.org/t/';
+const forumCategoryUrl = 'https://forum.freecodecamp.org/c/';
+const avatarUrl = 'https://cdn.freecodecamp.org/curriculum/forum-latest';
+
+const allCategories = {
+  299: { category: 'Career Advice', className: 'career' },
+  409: { category: 'Project Feedback', className: 'feedback' },
+  417: { category: 'freeCodeCamp Support', className: 'support' },
+  421: { category: 'JavaScript', className: 'javascript' },
+  423: { category: 'HTML - CSS', className: 'html-css' },
+  424: { category: 'Python', className: 'python' },
+  432: { category: 'You Can Do This!', className: 'motivation' },
+  560: { category: 'Back-End Development', className: 'backend' }
+};
+
+function timeAgo(releasedAt) {  
+
+  const minute = releasedAt.slice(14, 16)
+  const hour = releasedAt.slice(11, 13)
+  const day = releasedAt.slice(8, 10)
+  const month = releasedAt.slice(5, 7)
+  const year = releasedAt.slice(0, 4)
+
+  const fechaISOAct = new Date().toISOString();
+
+  const actMinute = fechaISOAct.slice(14, 16)
+  const actHour = fechaISOAct.slice(11, 13)
+  const actDay = fechaISOAct.slice(8, 10)
+  const actMonth = fechaISOAct.slice(5, 7)
+  const actYear = fechaISOAct.slice(0, 4)
+
+
+  const minutesAgo = actMinute - minute
+  const hoursAgo = actHour - hour
+  const daysAgo = actDay - day
+  const monthsAgo = actMonth - month
+  const yearsAgo = actYear - year
+// ESTOY WN
+//  if (hoursAgo === 0 && daysAgo === 0 && monthsAgo === 0 && yearsAgo === 0) {
+//    return `${minutesAgo}m ago`
+//  } else if (daysAgo === 0 && monthsAgo === 0 && yearsAgo === 0) {
+//    return `${hoursAgo}h ago`
+//  } else {
+//    dayMonths = monthsAgo * 30
+//    dayYears = yearsAgo * 365
+//
+//    totalDaysAgo = daysAgo + dayMonths + dayYears
+//    return `${totalDaysAgo}d ago`
+//  }
+
+
+
+const diffMs = fechaISOAct - releasedAt
+
+const diffMinutes = Math.floor(diffMs/(1000 * 60))
+const diffHours = Math.floor(diffMs/(1000 * 60 * 60))
+const diffDays = Math.floor(diffMs/(1000 * 60 * 60 * 24))
+ 
+if (diffMinutes < 60) {
+  return `${diffMinutes}m ago`
+} else if (diffHours < 24) {
+  return `${diffHours}h ago` 
+} else {
+  return `${diffDays}d ago` 
+}
+
+}
+
+
+
+function viewCount(views) {
+  if (views >= 1000) {
+    return `${Math.floor(views/1000)}k`
+  } else {
+    return views
+  }
+}
+
+
+function forumCategory(categoryId) {
+
+  if (allCategories[categoryId] !== undefined) {
+    
+    return `<a class="category ${allCategories[categoryId]["className"]}" href="${forumCategoryUrl}${allCategories[categoryId]["className"]}/${categoryId}">${allCategories[categoryId]["category"]}</a>`
+
+
+  } else {
+    return `<a class="category general" href="${forumCategoryUrl}general/${categoryId}">General</a>`
+  }
+
+
+
+}
