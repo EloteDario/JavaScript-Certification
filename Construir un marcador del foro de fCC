@@ -16,43 +16,9 @@ const allCategories = {
 };
 
 function timeAgo(releasedAt) {  
+const fechaISOAct = new Date()
 
-  const minute = releasedAt.slice(14, 16)
-  const hour = releasedAt.slice(11, 13)
-  const day = releasedAt.slice(8, 10)
-  const month = releasedAt.slice(5, 7)
-  const year = releasedAt.slice(0, 4)
-
-  const fechaISOAct = new Date().toISOString();
-
-  const actMinute = fechaISOAct.slice(14, 16)
-  const actHour = fechaISOAct.slice(11, 13)
-  const actDay = fechaISOAct.slice(8, 10)
-  const actMonth = fechaISOAct.slice(5, 7)
-  const actYear = fechaISOAct.slice(0, 4)
-
-
-  const minutesAgo = actMinute - minute
-  const hoursAgo = actHour - hour
-  const daysAgo = actDay - day
-  const monthsAgo = actMonth - month
-  const yearsAgo = actYear - year
-// ESTOY WN
-//  if (hoursAgo === 0 && daysAgo === 0 && monthsAgo === 0 && yearsAgo === 0) {
-//    return `${minutesAgo}m ago`
-//  } else if (daysAgo === 0 && monthsAgo === 0 && yearsAgo === 0) {
-//    return `${hoursAgo}h ago`
-//  } else {
-//    dayMonths = monthsAgo * 30
-//    dayYears = yearsAgo * 365
-//
-//    totalDaysAgo = daysAgo + dayMonths + dayYears
-//    return `${totalDaysAgo}d ago`
-//  }
-
-
-
-const diffMs = fechaISOAct - releasedAt
+const diffMs = fechaISOAct - Date.parse(releasedAt)
 
 const diffMinutes = Math.floor(diffMs/(1000 * 60))
 const diffHours = Math.floor(diffMs/(1000 * 60 * 60))
@@ -92,4 +58,65 @@ function forumCategory(categoryId) {
 
 
 
+}
+
+function avatars(posters , users) {
+  let stringImgs = `` 
+  const listPostsId = []
+
+  for (let i = 0; i < posters.length; i++) {
+    listPostsId.push(posters[i].user_id)
+  }
+
+  for (let o = 0; o < listPostsId.length; o++) {
+    for (let m = 0; m < users.length; m++) {
+      if (listPostsId[o] === users[m]["id"]) {
+        if (!users[m]["avatar_template"].replace('{size}', '30')[0] === "/") {
+        stringImgs += `<img src="${users[m]["avatar_template"].replace('{size}', '30')}" alt="${users[m]["name"]}">`}
+        else {
+          stringImgs += `<img src="${avatarUrl + users[m]["avatar_template"].replace('{size}', '30')}" alt="${users[m]["name"]}">`
+        }
+      }
+    }
+  }
+  return stringImgs // high quality code 
+}
+
+function showLatestPosts(forumLatest) {
+  const users = forumLatest.users
+  const topicList = forumLatest.topic_list
+
+  const postsContainer = document.querySelector("#posts-container")
+  let htmlString = "";
+  for (let i = 0; i < topicList.topics.length; i++) {
+    const {id, title, views, posts_count, slug, posters, category_id, bumped_at} = topicList.topics[i]
+    htmlString += `<tr>
+    <td>
+    <a class="post-title" href="${forumTopicUrl}${slug}/${id}">${title}</a>
+    ${forumCategory(category_id)}
+    </td>
+    <td>
+      <div class="avatar-container">
+        ${avatars(posters, users)}
+      </div>
+    </td>
+    <td>${posts_count - 1}</td>
+    <td>${viewCount(views)}</td>
+    <td>${timeAgo(bumped_at)}</td>
+    </tr>`
+  }
+  
+  postsContainer.innerHTML = htmlString;
+}
+ 
+
+async function fetchData() {
+  try {
+    const respuesta = await fetch(forumLatest)
+    
+    const parseArepa = await respuesta.json()
+    showLatestPosts(parseArepa)
+  } catch (error) {
+    console.log(error)
+  }
 }
