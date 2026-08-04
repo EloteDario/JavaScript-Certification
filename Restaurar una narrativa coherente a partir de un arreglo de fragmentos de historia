@@ -1,0 +1,25 @@
+//Lo elimine a lo pdnj antes de copiarlo...
+
+//Una parte...
+
+function fillMissingFragments(arr) {
+
+const newArr = [] 
+let s = arr[arr.length - 1].id
+let cajaActual = arr.length - 1
+
+
+
+for (let i = s; i >= 1; i--) {
+  if (cajaActual >= 0 && arr[cajaActual].id === i) {
+    newArr.unshift(arr[cajaActual])
+    cajaActual--
+
+  } else {
+    newArr.unshift({"id": i, "text": "[...]"})
+    console.log("[FILLED]")
+  }
+}
+ 
+return newArr
+}
